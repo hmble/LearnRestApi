@@ -1,7 +1,7 @@
 // /customers
 
-const express = require("express");
-const router = express.Router();
+const Router = require("express-promise-router");
+const router = Router();
 const customerController = require("../controllers/customers");
 
 router.get("/:id", customerController.getById);

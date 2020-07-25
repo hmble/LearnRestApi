@@ -1,7 +1,8 @@
-const express = require("express");
+//const express = require("express");
 const bodyParser = require("body-parser");
 
-const router = express.Router();
+const Router = require("express-promise-router");
+const router = Router();
 
 const homeController = require("../controllers/home");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
