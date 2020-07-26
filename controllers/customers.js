@@ -14,7 +14,13 @@ module.exports = {
 
       delete rows.meta;
 
-      res.json(rows);
+      if (rows.length !== 0) {
+        res.status(200).json(rows);
+      } else {
+        res.status(200).json({
+          message: "Customer does not exist. Please check customer id",
+        });
+      }
     } catch (err) {
       console.log("Error from customers getById()", err);
     } finally {
