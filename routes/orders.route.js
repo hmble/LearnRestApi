@@ -1,13 +1,13 @@
 const Router = require("express-promise-router");
 const router = Router();
 
-const productsController = require("../controllers/products.controller");
+const ordersController = require("../controllers/orders.controller");
 //const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-router.get("/", productsController.getProduct);
+router.get("/", ordersController.getOrder);
 //router.post("/", urlencodedParser, homeController.postHome);
-router.post("/", productsController.createProduct);
+//router.post("/", ordersController.createProduct);
 
-router.get("/:id", productsController.getProductById);
+router.get("/:id", ordersController.getOrderById);
 
 module.exports = router;

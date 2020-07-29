@@ -4,7 +4,7 @@
 const Router = require("express-promise-router");
 const router = Router();
 
-const homeController = require("../controllers/home");
+const homeController = require("../controllers/home.controller");
 //const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 router.get("/", homeController.getHome);
