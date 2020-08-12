@@ -3,6 +3,34 @@
 const pool = require("../db");
 
 module.exports = {
+  renderForm: async (req, res) => {
+    try {
+      res.render("customers");
+    } catch (err) {
+      console.log("Error from customerController.renderForm() ", err);
+    }
+  },
+  createCustomer: async (req, res) => {
+    let conn;
+    try {
+      conn = await pool.getConnection();
+
+      const { name, phone, city } = req.body;
+      await conn.query(
+        `
+      INSERT INTO customers (name, phone, city) VALUES(?, ?, ?) 
+      `,
+        [name, phone, city]
+      );
+
+      const rows = await conn.query(`SELECT LAST_INSERT_ID() as customer_id`);
+      delete rows.meta;
+
+      res.status(200).json({ message: "Customer created", data: rows });
+    } catch (err) {
+      console.log("Error from customers.createCustomer() ", err);
+    }
+  },
   getById: async (req, res) => {
     let conn;
     try {
@@ -40,32 +68,6 @@ module.exports = {
       res.json(rows);
     } catch (err) {
       console.log("Error from customers getAllCustomers() ", err);
-    } finally {
-      if (conn) {
-        return conn.end();
-      }
-    }
-  },
-  createOrder: async (req, res) => {
-    let conn;
-
-    try {
-      conn = await pool.getConnection();
-
-      await conn.query(
-        `
-      INSERT INTO orders (created_at, customer_id, is_paid) VALUES (NOW(), ?, false)
-      `,
-        req.params.id
-      );
-
-      const rows = await conn.query("SELECT LAST_INSERT_ID() as order_id");
-
-      delete rows.meta;
-
-      res.redirect(`/orders?order_id=${rows[0].order_id}`);
-    } catch (err) {
-      console.log("Error from customers createOrder() ", err);
     } finally {
       if (conn) {
         return conn.end();
