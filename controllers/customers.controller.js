@@ -26,9 +26,13 @@ module.exports = {
       const rows = await conn.query(`SELECT LAST_INSERT_ID() as customer_id`);
       delete rows.meta;
 
-      res.status(200).json({ message: "Customer created", data: rows });
+      res.status(200).json({ message: "Customer created", data: rows[0] });
     } catch (err) {
       console.log("Error from customers.createCustomer() ", err);
+    } finally {
+      if (conn) {
+        return conn.end();
+      }
     }
   },
   getById: async (req, res) => {
@@ -43,7 +47,7 @@ module.exports = {
       delete rows.meta;
 
       if (rows.length !== 0) {
-        res.status(200).json(rows);
+        res.status(200).json(rows[0]);
       } else {
         res.status(200).json({
           message: "Customer does not exist. Please check customer id",
