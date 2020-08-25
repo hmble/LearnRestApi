@@ -72,7 +72,7 @@ CREATE TABLE `orderdetails` (
   CREATE TABLE `products` (
     `product_id` INT(11) NOT NULL AUTO_INCREMENT,
     `product_name` VARCHAR(50) NOT NULL,
-    `price` INT(11) NOT NULL,
+    `sellprice` INT(11) NOT NULL,
     `buyprice` INT(11) NOT NULL,
 
   CONSTRAINT `products_pk` PRIMARY KEY (`product_id`)
