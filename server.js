@@ -10,7 +10,7 @@ const customerRoute = require("./routes/customers.routes");
 const productRoute = require("./routes/products.routes");
 
 const app = express();
-const port = 3000;
+const port = 4000;
 
 // set view engine
 // https://www.npmjs.com/package/mustache-express#usage
