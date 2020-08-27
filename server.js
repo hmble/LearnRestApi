@@ -1,5 +1,5 @@
 const express = require("express");
-
+const cors = require("cors");
 const mustacheExpress = require("mustache-express");
 
 const pool = require("./db");
@@ -20,6 +20,7 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "mustache");
 
 // use bodyparser
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/customers", customerRoute);
 app.use("/products", productRoute);
